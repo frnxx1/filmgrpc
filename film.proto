@@ -1,0 +1,34 @@
+syntax = "proto3"; 
+package ecommerce; 
+
+option go_package = "/ecommerce";
+
+service Films { 
+  rpc GetGenre(FilmGenre) returns (FilmGenreRole);
+  rpc GetFilm(FilmInfo) returns (FilmStatus); 
+}
+message FilmInfo { 
+  string id = 1; 
+  string name = 2;
+  string description = 3;
+  string status = 4;
+}
+message FilmStatus {  
+  string status = 1;
+}
+
+message FilmGenre {
+  string name = 1;
+  optional Genre genres = 2;
+
+}
+
+message FilmGenreRole {
+  optional Genre genres = 1;
+}
+
+enum Genre {
+  DRAMA = 0;
+  ACTION = 1;
+  COMEDY = 2;
+}

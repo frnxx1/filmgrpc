@@ -20,6 +20,55 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type Genre int32
+
+const (
+	Genre_DRAMA  Genre = 0
+	Genre_ACTION Genre = 1
+	Genre_COMEDY Genre = 2
+)
+
+// Enum value maps for Genre.
+var (
+	Genre_name = map[int32]string{
+		0: "DRAMA",
+		1: "ACTION",
+		2: "COMEDY",
+	}
+	Genre_value = map[string]int32{
+		"DRAMA":  0,
+		"ACTION": 1,
+		"COMEDY": 2,
+	}
+)
+
+func (x Genre) Enum() *Genre {
+	p := new(Genre)
+	*p = x
+	return p
+}
+
+func (x Genre) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Genre) Descriptor() protoreflect.EnumDescriptor {
+	return file_film_proto_enumTypes[0].Descriptor()
+}
+
+func (Genre) Type() protoreflect.EnumType {
+	return &file_film_proto_enumTypes[0]
+}
+
+func (x Genre) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Genre.Descriptor instead.
+func (Genre) EnumDescriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{0}
+}
+
 type FilmInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -138,6 +187,108 @@ func (x *FilmStatus) GetStatus() string {
 	return ""
 }
 
+type FilmGenre struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name   string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Genres *Genre `protobuf:"varint,2,opt,name=genres,proto3,enum=ecommerce.Genre,oneof" json:"genres,omitempty"`
+}
+
+func (x *FilmGenre) Reset() {
+	*x = FilmGenre{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_film_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FilmGenre) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FilmGenre) ProtoMessage() {}
+
+func (x *FilmGenre) ProtoReflect() protoreflect.Message {
+	mi := &file_film_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FilmGenre.ProtoReflect.Descriptor instead.
+func (*FilmGenre) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *FilmGenre) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *FilmGenre) GetGenres() Genre {
+	if x != nil && x.Genres != nil {
+		return *x.Genres
+	}
+	return Genre_DRAMA
+}
+
+type FilmGenreRole struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Genres *Genre `protobuf:"varint,1,opt,name=genres,proto3,enum=ecommerce.Genre,oneof" json:"genres,omitempty"`
+}
+
+func (x *FilmGenreRole) Reset() {
+	*x = FilmGenreRole{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_film_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FilmGenreRole) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FilmGenreRole) ProtoMessage() {}
+
+func (x *FilmGenreRole) ProtoReflect() protoreflect.Message {
+	mi := &file_film_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FilmGenreRole.ProtoReflect.Descriptor instead.
+func (*FilmGenreRole) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *FilmGenreRole) GetGenres() Genre {
+	if x != nil && x.Genres != nil {
+		return *x.Genres
+	}
+	return Genre_DRAMA
+}
+
 var File_film_proto protoreflect.FileDescriptor
 
 var file_film_proto_rawDesc = []byte{
@@ -151,12 +302,29 @@ var file_film_proto_rawDesc = []byte{
 	0x74, 0x75, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
 	0x73, 0x22, 0x24, 0x0a, 0x0a, 0x46, 0x69, 0x6c, 0x6d, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
 	0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x32, 0x3e, 0x0a, 0x05, 0x46, 0x69, 0x6c, 0x6d, 0x73,
-	0x12, 0x35, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x46, 0x69, 0x6c, 0x6d, 0x12, 0x13, 0x2e, 0x65, 0x63,
-	0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x49, 0x6e, 0x66, 0x6f,
-	0x1a, 0x15, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c,
-	0x6d, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x65, 0x63, 0x6f, 0x6d,
-	0x6d, 0x65, 0x72, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x59, 0x0a, 0x09, 0x46, 0x69, 0x6c, 0x6d, 0x47,
+	0x65, 0x6e, 0x72, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x2d, 0x0a, 0x06, 0x67, 0x65, 0x6e, 0x72,
+	0x65, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x10, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d,
+	0x65, 0x72, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x48, 0x00, 0x52, 0x06, 0x67, 0x65,
+	0x6e, 0x72, 0x65, 0x73, 0x88, 0x01, 0x01, 0x42, 0x09, 0x0a, 0x07, 0x5f, 0x67, 0x65, 0x6e, 0x72,
+	0x65, 0x73, 0x22, 0x49, 0x0a, 0x0d, 0x46, 0x69, 0x6c, 0x6d, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x52,
+	0x6f, 0x6c, 0x65, 0x12, 0x2d, 0x0a, 0x06, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0e, 0x32, 0x10, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e,
+	0x47, 0x65, 0x6e, 0x72, 0x65, 0x48, 0x00, 0x52, 0x06, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x73, 0x88,
+	0x01, 0x01, 0x42, 0x09, 0x0a, 0x07, 0x5f, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x73, 0x2a, 0x2a, 0x0a,
+	0x05, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x12, 0x09, 0x0a, 0x05, 0x44, 0x52, 0x41, 0x4d, 0x41, 0x10,
+	0x00, 0x12, 0x0a, 0x0a, 0x06, 0x41, 0x43, 0x54, 0x49, 0x4f, 0x4e, 0x10, 0x01, 0x12, 0x0a, 0x0a,
+	0x06, 0x43, 0x4f, 0x4d, 0x45, 0x44, 0x59, 0x10, 0x02, 0x32, 0x7a, 0x0a, 0x05, 0x46, 0x69, 0x6c,
+	0x6d, 0x73, 0x12, 0x3a, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x12, 0x14,
+	0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x47,
+	0x65, 0x6e, 0x72, 0x65, 0x1a, 0x18, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65,
+	0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x35,
+	0x0a, 0x07, 0x47, 0x65, 0x74, 0x46, 0x69, 0x6c, 0x6d, 0x12, 0x13, 0x2e, 0x65, 0x63, 0x6f, 0x6d,
+	0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x15,
+	0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x53,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65,
+	0x72, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -171,19 +339,27 @@ func file_film_proto_rawDescGZIP() []byte {
 	return file_film_proto_rawDescData
 }
 
-var file_film_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_film_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_film_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_film_proto_goTypes = []interface{}{
-	(*FilmInfo)(nil),   // 0: ecommerce.FilmInfo
-	(*FilmStatus)(nil), // 1: ecommerce.FilmStatus
+	(Genre)(0),            // 0: ecommerce.Genre
+	(*FilmInfo)(nil),      // 1: ecommerce.FilmInfo
+	(*FilmStatus)(nil),    // 2: ecommerce.FilmStatus
+	(*FilmGenre)(nil),     // 3: ecommerce.FilmGenre
+	(*FilmGenreRole)(nil), // 4: ecommerce.FilmGenreRole
 }
 var file_film_proto_depIdxs = []int32{
-	0, // 0: ecommerce.Films.GetFilm:input_type -> ecommerce.FilmInfo
-	1, // 1: ecommerce.Films.GetFilm:output_type -> ecommerce.FilmStatus
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: ecommerce.FilmGenre.genres:type_name -> ecommerce.Genre
+	0, // 1: ecommerce.FilmGenreRole.genres:type_name -> ecommerce.Genre
+	3, // 2: ecommerce.Films.GetGenre:input_type -> ecommerce.FilmGenre
+	1, // 3: ecommerce.Films.GetFilm:input_type -> ecommerce.FilmInfo
+	4, // 4: ecommerce.Films.GetGenre:output_type -> ecommerce.FilmGenreRole
+	2, // 5: ecommerce.Films.GetFilm:output_type -> ecommerce.FilmStatus
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_film_proto_init() }
@@ -216,19 +392,46 @@ func file_film_proto_init() {
 				return nil
 			}
 		}
+		file_film_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FilmGenre); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_film_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FilmGenreRole); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
+	file_film_proto_msgTypes[2].OneofWrappers = []interface{}{}
+	file_film_proto_msgTypes[3].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_film_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   2,
+			NumEnums:      1,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_film_proto_goTypes,
 		DependencyIndexes: file_film_proto_depIdxs,
+		EnumInfos:         file_film_proto_enumTypes,
 		MessageInfos:      file_film_proto_msgTypes,
 	}.Build()
 	File_film_proto = out.File

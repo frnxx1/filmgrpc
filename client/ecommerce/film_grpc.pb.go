@@ -19,13 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Films_GetFilm_FullMethodName = "/ecommerce.Films/GetFilm"
+	Films_GetGenre_FullMethodName = "/ecommerce.Films/GetGenre"
+	Films_GetFilm_FullMethodName  = "/ecommerce.Films/GetFilm"
 )
 
 // FilmsClient is the client API for Films service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FilmsClient interface {
+	GetGenre(ctx context.Context, in *FilmGenre, opts ...grpc.CallOption) (*FilmGenreRole, error)
 	GetFilm(ctx context.Context, in *FilmInfo, opts ...grpc.CallOption) (*FilmStatus, error)
 }
 
@@ -35,6 +37,15 @@ type filmsClient struct {
 
 func NewFilmsClient(cc grpc.ClientConnInterface) FilmsClient {
 	return &filmsClient{cc}
+}
+
+func (c *filmsClient) GetGenre(ctx context.Context, in *FilmGenre, opts ...grpc.CallOption) (*FilmGenreRole, error) {
+	out := new(FilmGenreRole)
+	err := c.cc.Invoke(ctx, Films_GetGenre_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *filmsClient) GetFilm(ctx context.Context, in *FilmInfo, opts ...grpc.CallOption) (*FilmStatus, error) {
@@ -50,6 +61,7 @@ func (c *filmsClient) GetFilm(ctx context.Context, in *FilmInfo, opts ...grpc.Ca
 // All implementations must embed UnimplementedFilmsServer
 // for forward compatibility
 type FilmsServer interface {
+	GetGenre(context.Context, *FilmGenre) (*FilmGenreRole, error)
 	GetFilm(context.Context, *FilmInfo) (*FilmStatus, error)
 	mustEmbedUnimplementedFilmsServer()
 }
@@ -58,6 +70,9 @@ type FilmsServer interface {
 type UnimplementedFilmsServer struct {
 }
 
+func (UnimplementedFilmsServer) GetGenre(context.Context, *FilmGenre) (*FilmGenreRole, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGenre not implemented")
+}
 func (UnimplementedFilmsServer) GetFilm(context.Context, *FilmInfo) (*FilmStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFilm not implemented")
 }
@@ -72,6 +87,24 @@ type UnsafeFilmsServer interface {
 
 func RegisterFilmsServer(s grpc.ServiceRegistrar, srv FilmsServer) {
 	s.RegisterService(&Films_ServiceDesc, srv)
+}
+
+func _Films_GetGenre_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FilmGenre)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FilmsServer).GetGenre(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Films_GetGenre_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FilmsServer).GetGenre(ctx, req.(*FilmGenre))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Films_GetFilm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -99,6 +132,10 @@ var Films_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "ecommerce.Films",
 	HandlerType: (*FilmsServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetGenre",
+			Handler:    _Films_GetGenre_Handler,
+		},
 		{
 			MethodName: "GetFilm",
 			Handler:    _Films_GetFilm_Handler,
