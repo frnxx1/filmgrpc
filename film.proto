@@ -6,15 +6,16 @@ option go_package = "/ecommerce";
 service Films { 
   rpc GetGenre(FilmGenre) returns (FilmGenreRole);
   rpc GetFilm(FilmInfo) returns (FilmStatus); 
+  rpc UpdateStatus(FilmInfo) returns (FilmUpdate);
 }
 message FilmInfo { 
   string id = 1; 
   string name = 2;
   string description = 3;
-  string status = 4;
+  bool status = 4;
 }
 message FilmStatus {  
-  string status = 1;
+  bool status = 1;
 }
 
 message FilmGenre {
@@ -32,3 +33,15 @@ enum Genre {
   ACTION = 1;
   COMEDY = 2;
 }
+
+
+message FilmUpdate {
+  message FilmInfo{
+    string id = 1; 
+    string name = 2;
+    string description = 3;
+    bool status = 4;
+  }
+  bool new_status = 5;
+}
+

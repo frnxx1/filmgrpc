@@ -30,20 +30,26 @@ func main() {
 	if err != nil {
 		log.Fatal("film not found ", err)
 	}
-	log.Print("got film ", r)
+	log.Print("Film ", r)
 
 	g,err := ClientGenre(c,ctx)
 	if err != nil {
 		log.Fatal("film genre not found", err)
 	}
-	log.Print("got film ", g)
+	log.Print("This is film ", g)
+
+	u,err := UpdateStatus(c,ctx)
+	if err != nil {
+		log.Fatal("film genre not found", err)
+	}
+	log.Print("Film status update ", u)
 }
 
 
 func ClientStatus(c pb.FilmsClient,ctx context.Context)(*pb.FilmStatus,error){
 	name := "Boys"
 	description := "Boys top"
-	status := "show"
+	status := true
 	id := "1"
 	films := pb.FilmInfo{Id: id, Name: name, Description: description, Status: status}
 	r,err := c.GetFilm(ctx,&films)
@@ -56,4 +62,14 @@ func ClientGenre(c pb.FilmsClient,ctx context.Context)(*pb.FilmGenreRole,error){
 	films := pb.FilmGenre{Name: name,Genres: &genre }
 	g,err := c.GetGenre(ctx,&films)
 	return g,err
+}
+
+func UpdateStatus(c pb.FilmsClient,ctx context.Context)(*pb.FilmUpdate,error){
+	name := "Boys"
+	description := "Boys top"
+	status := true
+	id := "1"
+	films := pb.FilmInfo{Id: id, Name: name, Description: description, Status: status}
+	u,err := c.UpdateStatus(ctx,&films)
+	return u, err
 }
