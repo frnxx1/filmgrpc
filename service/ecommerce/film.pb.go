@@ -20,68 +20,18 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Genre int32
-
-const (
-	Genre_DRAMA  Genre = 0
-	Genre_ACTION Genre = 1
-	Genre_COMEDY Genre = 2
-)
-
-// Enum value maps for Genre.
-var (
-	Genre_name = map[int32]string{
-		0: "DRAMA",
-		1: "ACTION",
-		2: "COMEDY",
-	}
-	Genre_value = map[string]int32{
-		"DRAMA":  0,
-		"ACTION": 1,
-		"COMEDY": 2,
-	}
-)
-
-func (x Genre) Enum() *Genre {
-	p := new(Genre)
-	*p = x
-	return p
-}
-
-func (x Genre) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (Genre) Descriptor() protoreflect.EnumDescriptor {
-	return file_film_proto_enumTypes[0].Descriptor()
-}
-
-func (Genre) Type() protoreflect.EnumType {
-	return &file_film_proto_enumTypes[0]
-}
-
-func (x Genre) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use Genre.Descriptor instead.
-func (Genre) EnumDescriptor() ([]byte, []int) {
-	return file_film_proto_rawDescGZIP(), []int{0}
-}
-
-type FilmInfo struct {
+type Film struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Status      bool   `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`
+	Id    string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Genre string `protobuf:"bytes,3,opt,name=genre,proto3" json:"genre,omitempty"`
 }
 
-func (x *FilmInfo) Reset() {
-	*x = FilmInfo{}
+func (x *Film) Reset() {
+	*x = Film{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_film_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -89,13 +39,13 @@ func (x *FilmInfo) Reset() {
 	}
 }
 
-func (x *FilmInfo) String() string {
+func (x *Film) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FilmInfo) ProtoMessage() {}
+func (*Film) ProtoMessage() {}
 
-func (x *FilmInfo) ProtoReflect() protoreflect.Message {
+func (x *Film) ProtoReflect() protoreflect.Message {
 	mi := &file_film_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -107,49 +57,42 @@ func (x *FilmInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FilmInfo.ProtoReflect.Descriptor instead.
-func (*FilmInfo) Descriptor() ([]byte, []int) {
+// Deprecated: Use Film.ProtoReflect.Descriptor instead.
+func (*Film) Descriptor() ([]byte, []int) {
 	return file_film_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *FilmInfo) GetId() string {
+func (x *Film) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *FilmInfo) GetName() string {
+func (x *Film) GetTitle() string {
 	if x != nil {
-		return x.Name
+		return x.Title
 	}
 	return ""
 }
 
-func (x *FilmInfo) GetDescription() string {
+func (x *Film) GetGenre() string {
 	if x != nil {
-		return x.Description
+		return x.Genre
 	}
 	return ""
 }
 
-func (x *FilmInfo) GetStatus() bool {
-	if x != nil {
-		return x.Status
-	}
-	return false
-}
-
-type FilmStatus struct {
+type CreateFilmRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status bool `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Movie *Film `protobuf:"bytes,1,opt,name=movie,proto3" json:"movie,omitempty"`
 }
 
-func (x *FilmStatus) Reset() {
-	*x = FilmStatus{}
+func (x *CreateFilmRequest) Reset() {
+	*x = CreateFilmRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_film_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -157,13 +100,13 @@ func (x *FilmStatus) Reset() {
 	}
 }
 
-func (x *FilmStatus) String() string {
+func (x *CreateFilmRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FilmStatus) ProtoMessage() {}
+func (*CreateFilmRequest) ProtoMessage() {}
 
-func (x *FilmStatus) ProtoReflect() protoreflect.Message {
+func (x *CreateFilmRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_film_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -175,29 +118,28 @@ func (x *FilmStatus) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FilmStatus.ProtoReflect.Descriptor instead.
-func (*FilmStatus) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateFilmRequest.ProtoReflect.Descriptor instead.
+func (*CreateFilmRequest) Descriptor() ([]byte, []int) {
 	return file_film_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *FilmStatus) GetStatus() bool {
+func (x *CreateFilmRequest) GetMovie() *Film {
 	if x != nil {
-		return x.Status
+		return x.Movie
 	}
-	return false
+	return nil
 }
 
-type FilmGenre struct {
+type CreateFilmResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name   string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Genres *Genre `protobuf:"varint,2,opt,name=genres,proto3,enum=ecommerce.Genre,oneof" json:"genres,omitempty"`
+	Movie *Film `protobuf:"bytes,1,opt,name=movie,proto3" json:"movie,omitempty"`
 }
 
-func (x *FilmGenre) Reset() {
-	*x = FilmGenre{}
+func (x *CreateFilmResponse) Reset() {
+	*x = CreateFilmResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_film_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -205,13 +147,13 @@ func (x *FilmGenre) Reset() {
 	}
 }
 
-func (x *FilmGenre) String() string {
+func (x *CreateFilmResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FilmGenre) ProtoMessage() {}
+func (*CreateFilmResponse) ProtoMessage() {}
 
-func (x *FilmGenre) ProtoReflect() protoreflect.Message {
+func (x *CreateFilmResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_film_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -223,35 +165,28 @@ func (x *FilmGenre) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FilmGenre.ProtoReflect.Descriptor instead.
-func (*FilmGenre) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateFilmResponse.ProtoReflect.Descriptor instead.
+func (*CreateFilmResponse) Descriptor() ([]byte, []int) {
 	return file_film_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *FilmGenre) GetName() string {
+func (x *CreateFilmResponse) GetMovie() *Film {
 	if x != nil {
-		return x.Name
+		return x.Movie
 	}
-	return ""
+	return nil
 }
 
-func (x *FilmGenre) GetGenres() Genre {
-	if x != nil && x.Genres != nil {
-		return *x.Genres
-	}
-	return Genre_DRAMA
-}
-
-type FilmGenreRole struct {
+type ReadFilmRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Genres *Genre `protobuf:"varint,1,opt,name=genres,proto3,enum=ecommerce.Genre,oneof" json:"genres,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *FilmGenreRole) Reset() {
-	*x = FilmGenreRole{}
+func (x *ReadFilmRequest) Reset() {
+	*x = ReadFilmRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_film_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -259,13 +194,13 @@ func (x *FilmGenreRole) Reset() {
 	}
 }
 
-func (x *FilmGenreRole) String() string {
+func (x *ReadFilmRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FilmGenreRole) ProtoMessage() {}
+func (*ReadFilmRequest) ProtoMessage() {}
 
-func (x *FilmGenreRole) ProtoReflect() protoreflect.Message {
+func (x *ReadFilmRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_film_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -277,28 +212,28 @@ func (x *FilmGenreRole) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FilmGenreRole.ProtoReflect.Descriptor instead.
-func (*FilmGenreRole) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReadFilmRequest.ProtoReflect.Descriptor instead.
+func (*ReadFilmRequest) Descriptor() ([]byte, []int) {
 	return file_film_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *FilmGenreRole) GetGenres() Genre {
-	if x != nil && x.Genres != nil {
-		return *x.Genres
+func (x *ReadFilmRequest) GetId() string {
+	if x != nil {
+		return x.Id
 	}
-	return Genre_DRAMA
+	return ""
 }
 
-type FilmUpdate struct {
+type ReadFilmResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	NewStatus bool `protobuf:"varint,5,opt,name=new_status,json=newStatus,proto3" json:"new_status,omitempty"`
+	Movie *Film `protobuf:"bytes,1,opt,name=movie,proto3" json:"movie,omitempty"`
 }
 
-func (x *FilmUpdate) Reset() {
-	*x = FilmUpdate{}
+func (x *ReadFilmResponse) Reset() {
+	*x = ReadFilmResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_film_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -306,13 +241,13 @@ func (x *FilmUpdate) Reset() {
 	}
 }
 
-func (x *FilmUpdate) String() string {
+func (x *ReadFilmResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FilmUpdate) ProtoMessage() {}
+func (*ReadFilmResponse) ProtoMessage() {}
 
-func (x *FilmUpdate) ProtoReflect() protoreflect.Message {
+func (x *ReadFilmResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_film_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -324,31 +259,26 @@ func (x *FilmUpdate) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FilmUpdate.ProtoReflect.Descriptor instead.
-func (*FilmUpdate) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReadFilmResponse.ProtoReflect.Descriptor instead.
+func (*ReadFilmResponse) Descriptor() ([]byte, []int) {
 	return file_film_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *FilmUpdate) GetNewStatus() bool {
+func (x *ReadFilmResponse) GetMovie() *Film {
 	if x != nil {
-		return x.NewStatus
+		return x.Movie
 	}
-	return false
+	return nil
 }
 
-type FilmUpdate_FilmInfo struct {
+type ReadFilmsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Status      bool   `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`
 }
 
-func (x *FilmUpdate_FilmInfo) Reset() {
-	*x = FilmUpdate_FilmInfo{}
+func (x *ReadFilmsRequest) Reset() {
+	*x = ReadFilmsRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_film_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -356,13 +286,13 @@ func (x *FilmUpdate_FilmInfo) Reset() {
 	}
 }
 
-func (x *FilmUpdate_FilmInfo) String() string {
+func (x *ReadFilmsRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FilmUpdate_FilmInfo) ProtoMessage() {}
+func (*ReadFilmsRequest) ProtoMessage() {}
 
-func (x *FilmUpdate_FilmInfo) ProtoReflect() protoreflect.Message {
+func (x *ReadFilmsRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_film_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -374,35 +304,242 @@ func (x *FilmUpdate_FilmInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FilmUpdate_FilmInfo.ProtoReflect.Descriptor instead.
-func (*FilmUpdate_FilmInfo) Descriptor() ([]byte, []int) {
-	return file_film_proto_rawDescGZIP(), []int{4, 0}
+// Deprecated: Use ReadFilmsRequest.ProtoReflect.Descriptor instead.
+func (*ReadFilmsRequest) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *FilmUpdate_FilmInfo) GetId() string {
+type ReadFilmsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Movies []*Film `protobuf:"bytes,1,rep,name=movies,proto3" json:"movies,omitempty"`
+}
+
+func (x *ReadFilmsResponse) Reset() {
+	*x = ReadFilmsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_film_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReadFilmsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadFilmsResponse) ProtoMessage() {}
+
+func (x *ReadFilmsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_film_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadFilmsResponse.ProtoReflect.Descriptor instead.
+func (*ReadFilmsResponse) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ReadFilmsResponse) GetMovies() []*Film {
+	if x != nil {
+		return x.Movies
+	}
+	return nil
+}
+
+type UpdateFilmRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Movie *Film `protobuf:"bytes,1,opt,name=movie,proto3" json:"movie,omitempty"`
+}
+
+func (x *UpdateFilmRequest) Reset() {
+	*x = UpdateFilmRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_film_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateFilmRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateFilmRequest) ProtoMessage() {}
+
+func (x *UpdateFilmRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_film_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateFilmRequest.ProtoReflect.Descriptor instead.
+func (*UpdateFilmRequest) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateFilmRequest) GetMovie() *Film {
+	if x != nil {
+		return x.Movie
+	}
+	return nil
+}
+
+type UpdateFilmResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Movie *Film `protobuf:"bytes,1,opt,name=movie,proto3" json:"movie,omitempty"`
+}
+
+func (x *UpdateFilmResponse) Reset() {
+	*x = UpdateFilmResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_film_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateFilmResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateFilmResponse) ProtoMessage() {}
+
+func (x *UpdateFilmResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_film_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateFilmResponse.ProtoReflect.Descriptor instead.
+func (*UpdateFilmResponse) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UpdateFilmResponse) GetMovie() *Film {
+	if x != nil {
+		return x.Movie
+	}
+	return nil
+}
+
+type DeleteFilmRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DeleteFilmRequest) Reset() {
+	*x = DeleteFilmRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_film_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteFilmRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFilmRequest) ProtoMessage() {}
+
+func (x *DeleteFilmRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_film_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFilmRequest.ProtoReflect.Descriptor instead.
+func (*DeleteFilmRequest) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteFilmRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *FilmUpdate_FilmInfo) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
+type DeleteFilmResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Success bool `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 }
 
-func (x *FilmUpdate_FilmInfo) GetDescription() string {
-	if x != nil {
-		return x.Description
+func (x *DeleteFilmResponse) Reset() {
+	*x = DeleteFilmResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_film_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
 	}
-	return ""
 }
 
-func (x *FilmUpdate_FilmInfo) GetStatus() bool {
+func (x *DeleteFilmResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFilmResponse) ProtoMessage() {}
+
+func (x *DeleteFilmResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_film_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFilmResponse.ProtoReflect.Descriptor instead.
+func (*DeleteFilmResponse) Descriptor() ([]byte, []int) {
+	return file_film_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *DeleteFilmResponse) GetSuccess() bool {
 	if x != nil {
-		return x.Status
+		return x.Success
 	}
 	return false
 }
@@ -411,51 +548,69 @@ var File_film_proto protoreflect.FileDescriptor
 
 var file_film_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x66, 0x69, 0x6c, 0x6d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x09, 0x65, 0x63,
-	0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x22, 0x68, 0x0a, 0x08, 0x46, 0x69, 0x6c, 0x6d, 0x49,
-	0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65,
-	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
-	0x73, 0x22, 0x24, 0x0a, 0x0a, 0x46, 0x69, 0x6c, 0x6d, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
-	0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52,
-	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x59, 0x0a, 0x09, 0x46, 0x69, 0x6c, 0x6d, 0x47,
-	0x65, 0x6e, 0x72, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x2d, 0x0a, 0x06, 0x67, 0x65, 0x6e, 0x72,
-	0x65, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x10, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d,
-	0x65, 0x72, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x48, 0x00, 0x52, 0x06, 0x67, 0x65,
-	0x6e, 0x72, 0x65, 0x73, 0x88, 0x01, 0x01, 0x42, 0x09, 0x0a, 0x07, 0x5f, 0x67, 0x65, 0x6e, 0x72,
-	0x65, 0x73, 0x22, 0x49, 0x0a, 0x0d, 0x46, 0x69, 0x6c, 0x6d, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x52,
-	0x6f, 0x6c, 0x65, 0x12, 0x2d, 0x0a, 0x06, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x0e, 0x32, 0x10, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e,
-	0x47, 0x65, 0x6e, 0x72, 0x65, 0x48, 0x00, 0x52, 0x06, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x73, 0x88,
-	0x01, 0x01, 0x42, 0x09, 0x0a, 0x07, 0x5f, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x73, 0x22, 0x95, 0x01,
-	0x0a, 0x0a, 0x46, 0x69, 0x6c, 0x6d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x1d, 0x0a, 0x0a,
-	0x6e, 0x65, 0x77, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x05, 0x20, 0x01, 0x28, 0x08,
-	0x52, 0x09, 0x6e, 0x65, 0x77, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x1a, 0x68, 0x0a, 0x08, 0x46,
-	0x69, 0x6c, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64,
-	0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a,
-	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x73,
-	0x74, 0x61, 0x74, 0x75, 0x73, 0x2a, 0x2a, 0x0a, 0x05, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x12, 0x09,
-	0x0a, 0x05, 0x44, 0x52, 0x41, 0x4d, 0x41, 0x10, 0x00, 0x12, 0x0a, 0x0a, 0x06, 0x41, 0x43, 0x54,
-	0x49, 0x4f, 0x4e, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x43, 0x4f, 0x4d, 0x45, 0x44, 0x59, 0x10,
-	0x02, 0x32, 0xb6, 0x01, 0x0a, 0x05, 0x46, 0x69, 0x6c, 0x6d, 0x73, 0x12, 0x3a, 0x0a, 0x08, 0x47,
-	0x65, 0x74, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x12, 0x14, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65,
-	0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x1a, 0x18, 0x2e,
-	0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x47, 0x65,
-	0x6e, 0x72, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x35, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x46, 0x69,
-	0x6c, 0x6d, 0x12, 0x13, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46,
-	0x69, 0x6c, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x15, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65,
-	0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x3a,
-	0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x13,
-	0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x49,
-	0x6e, 0x66, 0x6f, 0x1a, 0x15, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e,
-	0x46, 0x69, 0x6c, 0x6d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x65,
-	0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x22, 0x42, 0x0a, 0x04, 0x46, 0x69, 0x6c, 0x6d, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x14, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x22, 0x3a, 0x0a, 0x11, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x25, 0x0a, 0x05, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x0f, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d,
+	0x52, 0x05, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x22, 0x3b, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a,
+	0x05, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x65,
+	0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x05, 0x6d,
+	0x6f, 0x76, 0x69, 0x65, 0x22, 0x21, 0x0a, 0x0f, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x6d,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x39, 0x0a, 0x10, 0x52, 0x65, 0x61, 0x64, 0x46,
+	0x69, 0x6c, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x05, 0x6d,
+	0x6f, 0x76, 0x69, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x65, 0x63, 0x6f,
+	0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x05, 0x6d, 0x6f, 0x76,
+	0x69, 0x65, 0x22, 0x12, 0x0a, 0x10, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x6d, 0x73, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x3c, 0x0a, 0x11, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69,
+	0x6c, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x06, 0x6d,
+	0x6f, 0x76, 0x69, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x65, 0x63,
+	0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x06, 0x6d, 0x6f,
+	0x76, 0x69, 0x65, 0x73, 0x22, 0x3a, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69,
+	0x6c, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x05, 0x6d, 0x6f, 0x76,
+	0x69, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d,
+	0x65, 0x72, 0x63, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x05, 0x6d, 0x6f, 0x76, 0x69, 0x65,
+	0x22, 0x3b, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x05, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63,
+	0x65, 0x2e, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x05, 0x6d, 0x6f, 0x76, 0x69, 0x65, 0x22, 0x23, 0x0a,
+	0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
+	0x69, 0x64, 0x22, 0x2e, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63, 0x63,
+	0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65,
+	0x73, 0x73, 0x32, 0x89, 0x03, 0x0a, 0x0c, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x12, 0x4c, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4d, 0x6f, 0x76,
+	0x69, 0x65, 0x12, 0x1c, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x1d, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x00, 0x12, 0x45, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12, 0x1a, 0x2e,
+	0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69,
+	0x6c, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x65, 0x63, 0x6f, 0x6d,
+	0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x48, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x4d,
+	0x6f, 0x76, 0x69, 0x65, 0x73, 0x12, 0x1b, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63,
+	0x65, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x52,
+	0x65, 0x61, 0x64, 0x46, 0x69, 0x6c, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x00, 0x12, 0x4c, 0x0a, 0x0b, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x6f, 0x76, 0x69,
+	0x65, 0x12, 0x1c, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1d, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
+	0x12, 0x4c, 0x0a, 0x0b, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x12,
+	0x1c, 0x2e, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e,
+	0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x46, 0x69, 0x6c, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x0c,
+	0x5a, 0x0a, 0x2f, 0x65, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x72, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -470,31 +625,42 @@ func file_film_proto_rawDescGZIP() []byte {
 	return file_film_proto_rawDescData
 }
 
-var file_film_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_film_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_film_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_film_proto_goTypes = []interface{}{
-	(Genre)(0),                  // 0: ecommerce.Genre
-	(*FilmInfo)(nil),            // 1: ecommerce.FilmInfo
-	(*FilmStatus)(nil),          // 2: ecommerce.FilmStatus
-	(*FilmGenre)(nil),           // 3: ecommerce.FilmGenre
-	(*FilmGenreRole)(nil),       // 4: ecommerce.FilmGenreRole
-	(*FilmUpdate)(nil),          // 5: ecommerce.FilmUpdate
-	(*FilmUpdate_FilmInfo)(nil), // 6: ecommerce.FilmUpdate.FilmInfo
+	(*Film)(nil),               // 0: ecommerce.Film
+	(*CreateFilmRequest)(nil),  // 1: ecommerce.CreateFilmRequest
+	(*CreateFilmResponse)(nil), // 2: ecommerce.CreateFilmResponse
+	(*ReadFilmRequest)(nil),    // 3: ecommerce.ReadFilmRequest
+	(*ReadFilmResponse)(nil),   // 4: ecommerce.ReadFilmResponse
+	(*ReadFilmsRequest)(nil),   // 5: ecommerce.ReadFilmsRequest
+	(*ReadFilmsResponse)(nil),  // 6: ecommerce.ReadFilmsResponse
+	(*UpdateFilmRequest)(nil),  // 7: ecommerce.UpdateFilmRequest
+	(*UpdateFilmResponse)(nil), // 8: ecommerce.UpdateFilmResponse
+	(*DeleteFilmRequest)(nil),  // 9: ecommerce.DeleteFilmRequest
+	(*DeleteFilmResponse)(nil), // 10: ecommerce.DeleteFilmResponse
 }
 var file_film_proto_depIdxs = []int32{
-	0, // 0: ecommerce.FilmGenre.genres:type_name -> ecommerce.Genre
-	0, // 1: ecommerce.FilmGenreRole.genres:type_name -> ecommerce.Genre
-	3, // 2: ecommerce.Films.GetGenre:input_type -> ecommerce.FilmGenre
-	1, // 3: ecommerce.Films.GetFilm:input_type -> ecommerce.FilmInfo
-	1, // 4: ecommerce.Films.UpdateStatus:input_type -> ecommerce.FilmInfo
-	4, // 5: ecommerce.Films.GetGenre:output_type -> ecommerce.FilmGenreRole
-	2, // 6: ecommerce.Films.GetFilm:output_type -> ecommerce.FilmStatus
-	5, // 7: ecommerce.Films.UpdateStatus:output_type -> ecommerce.FilmUpdate
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	0,  // 0: ecommerce.CreateFilmRequest.movie:type_name -> ecommerce.Film
+	0,  // 1: ecommerce.CreateFilmResponse.movie:type_name -> ecommerce.Film
+	0,  // 2: ecommerce.ReadFilmResponse.movie:type_name -> ecommerce.Film
+	0,  // 3: ecommerce.ReadFilmsResponse.movies:type_name -> ecommerce.Film
+	0,  // 4: ecommerce.UpdateFilmRequest.movie:type_name -> ecommerce.Film
+	0,  // 5: ecommerce.UpdateFilmResponse.movie:type_name -> ecommerce.Film
+	1,  // 6: ecommerce.MovieService.CreateMovie:input_type -> ecommerce.CreateFilmRequest
+	3,  // 7: ecommerce.MovieService.GetMovie:input_type -> ecommerce.ReadFilmRequest
+	5,  // 8: ecommerce.MovieService.GetMovies:input_type -> ecommerce.ReadFilmsRequest
+	7,  // 9: ecommerce.MovieService.UpdateMovie:input_type -> ecommerce.UpdateFilmRequest
+	9,  // 10: ecommerce.MovieService.DeleteMovie:input_type -> ecommerce.DeleteFilmRequest
+	2,  // 11: ecommerce.MovieService.CreateMovie:output_type -> ecommerce.CreateFilmResponse
+	4,  // 12: ecommerce.MovieService.GetMovie:output_type -> ecommerce.ReadFilmResponse
+	6,  // 13: ecommerce.MovieService.GetMovies:output_type -> ecommerce.ReadFilmsResponse
+	8,  // 14: ecommerce.MovieService.UpdateMovie:output_type -> ecommerce.UpdateFilmResponse
+	10, // 15: ecommerce.MovieService.DeleteMovie:output_type -> ecommerce.DeleteFilmResponse
+	11, // [11:16] is the sub-list for method output_type
+	6,  // [6:11] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_film_proto_init() }
@@ -504,7 +670,7 @@ func file_film_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_film_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FilmInfo); i {
+			switch v := v.(*Film); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -516,7 +682,7 @@ func file_film_proto_init() {
 			}
 		}
 		file_film_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FilmStatus); i {
+			switch v := v.(*CreateFilmRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -528,7 +694,7 @@ func file_film_proto_init() {
 			}
 		}
 		file_film_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FilmGenre); i {
+			switch v := v.(*CreateFilmResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -540,7 +706,7 @@ func file_film_proto_init() {
 			}
 		}
 		file_film_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FilmGenreRole); i {
+			switch v := v.(*ReadFilmRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -552,7 +718,7 @@ func file_film_proto_init() {
 			}
 		}
 		file_film_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FilmUpdate); i {
+			switch v := v.(*ReadFilmResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -564,7 +730,67 @@ func file_film_proto_init() {
 			}
 		}
 		file_film_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FilmUpdate_FilmInfo); i {
+			switch v := v.(*ReadFilmsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_film_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReadFilmsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_film_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateFilmRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_film_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateFilmResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_film_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteFilmRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_film_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteFilmResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -576,21 +802,18 @@ func file_film_proto_init() {
 			}
 		}
 	}
-	file_film_proto_msgTypes[2].OneofWrappers = []interface{}{}
-	file_film_proto_msgTypes[3].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_film_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   6,
+			NumEnums:      0,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_film_proto_goTypes,
 		DependencyIndexes: file_film_proto_depIdxs,
-		EnumInfos:         file_film_proto_enumTypes,
 		MessageInfos:      file_film_proto_msgTypes,
 	}.Build()
 	File_film_proto = out.File

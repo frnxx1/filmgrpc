@@ -19,163 +19,237 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Films_GetGenre_FullMethodName     = "/ecommerce.Films/GetGenre"
-	Films_GetFilm_FullMethodName      = "/ecommerce.Films/GetFilm"
-	Films_UpdateStatus_FullMethodName = "/ecommerce.Films/UpdateStatus"
+	MovieService_CreateMovie_FullMethodName = "/ecommerce.MovieService/CreateMovie"
+	MovieService_GetMovie_FullMethodName    = "/ecommerce.MovieService/GetMovie"
+	MovieService_GetMovies_FullMethodName   = "/ecommerce.MovieService/GetMovies"
+	MovieService_UpdateMovie_FullMethodName = "/ecommerce.MovieService/UpdateMovie"
+	MovieService_DeleteMovie_FullMethodName = "/ecommerce.MovieService/DeleteMovie"
 )
 
-// FilmsClient is the client API for Films service.
+// MovieServiceClient is the client API for MovieService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type FilmsClient interface {
-	GetGenre(ctx context.Context, in *FilmGenre, opts ...grpc.CallOption) (*FilmGenreRole, error)
-	GetFilm(ctx context.Context, in *FilmInfo, opts ...grpc.CallOption) (*FilmStatus, error)
-	UpdateStatus(ctx context.Context, in *FilmInfo, opts ...grpc.CallOption) (*FilmUpdate, error)
+type MovieServiceClient interface {
+	CreateMovie(ctx context.Context, in *CreateFilmRequest, opts ...grpc.CallOption) (*CreateFilmResponse, error)
+	GetMovie(ctx context.Context, in *ReadFilmRequest, opts ...grpc.CallOption) (*ReadFilmResponse, error)
+	GetMovies(ctx context.Context, in *ReadFilmsRequest, opts ...grpc.CallOption) (*ReadFilmsResponse, error)
+	UpdateMovie(ctx context.Context, in *UpdateFilmRequest, opts ...grpc.CallOption) (*UpdateFilmResponse, error)
+	DeleteMovie(ctx context.Context, in *DeleteFilmRequest, opts ...grpc.CallOption) (*DeleteFilmResponse, error)
 }
 
-type filmsClient struct {
+type movieServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewFilmsClient(cc grpc.ClientConnInterface) FilmsClient {
-	return &filmsClient{cc}
+func NewMovieServiceClient(cc grpc.ClientConnInterface) MovieServiceClient {
+	return &movieServiceClient{cc}
 }
 
-func (c *filmsClient) GetGenre(ctx context.Context, in *FilmGenre, opts ...grpc.CallOption) (*FilmGenreRole, error) {
-	out := new(FilmGenreRole)
-	err := c.cc.Invoke(ctx, Films_GetGenre_FullMethodName, in, out, opts...)
+func (c *movieServiceClient) CreateMovie(ctx context.Context, in *CreateFilmRequest, opts ...grpc.CallOption) (*CreateFilmResponse, error) {
+	out := new(CreateFilmResponse)
+	err := c.cc.Invoke(ctx, MovieService_CreateMovie_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *filmsClient) GetFilm(ctx context.Context, in *FilmInfo, opts ...grpc.CallOption) (*FilmStatus, error) {
-	out := new(FilmStatus)
-	err := c.cc.Invoke(ctx, Films_GetFilm_FullMethodName, in, out, opts...)
+func (c *movieServiceClient) GetMovie(ctx context.Context, in *ReadFilmRequest, opts ...grpc.CallOption) (*ReadFilmResponse, error) {
+	out := new(ReadFilmResponse)
+	err := c.cc.Invoke(ctx, MovieService_GetMovie_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *filmsClient) UpdateStatus(ctx context.Context, in *FilmInfo, opts ...grpc.CallOption) (*FilmUpdate, error) {
-	out := new(FilmUpdate)
-	err := c.cc.Invoke(ctx, Films_UpdateStatus_FullMethodName, in, out, opts...)
+func (c *movieServiceClient) GetMovies(ctx context.Context, in *ReadFilmsRequest, opts ...grpc.CallOption) (*ReadFilmsResponse, error) {
+	out := new(ReadFilmsResponse)
+	err := c.cc.Invoke(ctx, MovieService_GetMovies_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// FilmsServer is the server API for Films service.
-// All implementations must embed UnimplementedFilmsServer
+func (c *movieServiceClient) UpdateMovie(ctx context.Context, in *UpdateFilmRequest, opts ...grpc.CallOption) (*UpdateFilmResponse, error) {
+	out := new(UpdateFilmResponse)
+	err := c.cc.Invoke(ctx, MovieService_UpdateMovie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *movieServiceClient) DeleteMovie(ctx context.Context, in *DeleteFilmRequest, opts ...grpc.CallOption) (*DeleteFilmResponse, error) {
+	out := new(DeleteFilmResponse)
+	err := c.cc.Invoke(ctx, MovieService_DeleteMovie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// MovieServiceServer is the server API for MovieService service.
+// All implementations must embed UnimplementedMovieServiceServer
 // for forward compatibility
-type FilmsServer interface {
-	GetGenre(context.Context, *FilmGenre) (*FilmGenreRole, error)
-	GetFilm(context.Context, *FilmInfo) (*FilmStatus, error)
-	UpdateStatus(context.Context, *FilmInfo) (*FilmUpdate, error)
-	mustEmbedUnimplementedFilmsServer()
+type MovieServiceServer interface {
+	CreateMovie(context.Context, *CreateFilmRequest) (*CreateFilmResponse, error)
+	GetMovie(context.Context, *ReadFilmRequest) (*ReadFilmResponse, error)
+	GetMovies(context.Context, *ReadFilmsRequest) (*ReadFilmsResponse, error)
+	UpdateMovie(context.Context, *UpdateFilmRequest) (*UpdateFilmResponse, error)
+	DeleteMovie(context.Context, *DeleteFilmRequest) (*DeleteFilmResponse, error)
+	mustEmbedUnimplementedMovieServiceServer()
 }
 
-// UnimplementedFilmsServer must be embedded to have forward compatible implementations.
-type UnimplementedFilmsServer struct {
+// UnimplementedMovieServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedMovieServiceServer struct {
 }
 
-func (UnimplementedFilmsServer) GetGenre(context.Context, *FilmGenre) (*FilmGenreRole, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetGenre not implemented")
+func (UnimplementedMovieServiceServer) CreateMovie(context.Context, *CreateFilmRequest) (*CreateFilmResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMovie not implemented")
 }
-func (UnimplementedFilmsServer) GetFilm(context.Context, *FilmInfo) (*FilmStatus, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetFilm not implemented")
+func (UnimplementedMovieServiceServer) GetMovie(context.Context, *ReadFilmRequest) (*ReadFilmResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMovie not implemented")
 }
-func (UnimplementedFilmsServer) UpdateStatus(context.Context, *FilmInfo) (*FilmUpdate, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateStatus not implemented")
+func (UnimplementedMovieServiceServer) GetMovies(context.Context, *ReadFilmsRequest) (*ReadFilmsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMovies not implemented")
 }
-func (UnimplementedFilmsServer) mustEmbedUnimplementedFilmsServer() {}
+func (UnimplementedMovieServiceServer) UpdateMovie(context.Context, *UpdateFilmRequest) (*UpdateFilmResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMovie not implemented")
+}
+func (UnimplementedMovieServiceServer) DeleteMovie(context.Context, *DeleteFilmRequest) (*DeleteFilmResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMovie not implemented")
+}
+func (UnimplementedMovieServiceServer) mustEmbedUnimplementedMovieServiceServer() {}
 
-// UnsafeFilmsServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to FilmsServer will
+// UnsafeMovieServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to MovieServiceServer will
 // result in compilation errors.
-type UnsafeFilmsServer interface {
-	mustEmbedUnimplementedFilmsServer()
+type UnsafeMovieServiceServer interface {
+	mustEmbedUnimplementedMovieServiceServer()
 }
 
-func RegisterFilmsServer(s grpc.ServiceRegistrar, srv FilmsServer) {
-	s.RegisterService(&Films_ServiceDesc, srv)
+func RegisterMovieServiceServer(s grpc.ServiceRegistrar, srv MovieServiceServer) {
+	s.RegisterService(&MovieService_ServiceDesc, srv)
 }
 
-func _Films_GetGenre_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FilmGenre)
+func _MovieService_CreateMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateFilmRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FilmsServer).GetGenre(ctx, in)
+		return srv.(MovieServiceServer).CreateMovie(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Films_GetGenre_FullMethodName,
+		FullMethod: MovieService_CreateMovie_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FilmsServer).GetGenre(ctx, req.(*FilmGenre))
+		return srv.(MovieServiceServer).CreateMovie(ctx, req.(*CreateFilmRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Films_GetFilm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FilmInfo)
+func _MovieService_GetMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadFilmRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FilmsServer).GetFilm(ctx, in)
+		return srv.(MovieServiceServer).GetMovie(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Films_GetFilm_FullMethodName,
+		FullMethod: MovieService_GetMovie_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FilmsServer).GetFilm(ctx, req.(*FilmInfo))
+		return srv.(MovieServiceServer).GetMovie(ctx, req.(*ReadFilmRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Films_UpdateStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FilmInfo)
+func _MovieService_GetMovies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadFilmsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FilmsServer).UpdateStatus(ctx, in)
+		return srv.(MovieServiceServer).GetMovies(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Films_UpdateStatus_FullMethodName,
+		FullMethod: MovieService_GetMovies_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FilmsServer).UpdateStatus(ctx, req.(*FilmInfo))
+		return srv.(MovieServiceServer).GetMovies(ctx, req.(*ReadFilmsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Films_ServiceDesc is the grpc.ServiceDesc for Films service.
+func _MovieService_UpdateMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFilmRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MovieServiceServer).UpdateMovie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MovieService_UpdateMovie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MovieServiceServer).UpdateMovie(ctx, req.(*UpdateFilmRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MovieService_DeleteMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteFilmRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MovieServiceServer).DeleteMovie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MovieService_DeleteMovie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MovieServiceServer).DeleteMovie(ctx, req.(*DeleteFilmRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// MovieService_ServiceDesc is the grpc.ServiceDesc for MovieService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Films_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ecommerce.Films",
-	HandlerType: (*FilmsServer)(nil),
+var MovieService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "ecommerce.MovieService",
+	HandlerType: (*MovieServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetGenre",
-			Handler:    _Films_GetGenre_Handler,
+			MethodName: "CreateMovie",
+			Handler:    _MovieService_CreateMovie_Handler,
 		},
 		{
-			MethodName: "GetFilm",
-			Handler:    _Films_GetFilm_Handler,
+			MethodName: "GetMovie",
+			Handler:    _MovieService_GetMovie_Handler,
 		},
 		{
-			MethodName: "UpdateStatus",
-			Handler:    _Films_UpdateStatus_Handler,
+			MethodName: "GetMovies",
+			Handler:    _MovieService_GetMovies_Handler,
+		},
+		{
+			MethodName: "UpdateMovie",
+			Handler:    _MovieService_UpdateMovie_Handler,
+		},
+		{
+			MethodName: "DeleteMovie",
+			Handler:    _MovieService_DeleteMovie_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

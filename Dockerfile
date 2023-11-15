@@ -1,28 +1,15 @@
-# Используем образ golang в качестве базового образа
-FROM golang:1.21.1-alpine AS build
-
-# Устанавливаем зависимости
-WORKDIR /filmgrpc
-COPY go.mod go.sum ./
-RUN go mod download
-
-# Копируем исходный код
+#build stage
+FROM golang:alpine AS builder
+RUN apk add --no-cache git
+WORKDIR /go/src/app
 COPY . .
+RUN go get -d -v ./...
+RUN go build -o /go/bin/app -v ./...
 
-# Собираем клиент
-WORKDIR /filmgrpc/client
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o client .
-
-# Собираем сервер
-WORKDIR /filmgrpc/service
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server .
-
-# Используем образ scratch в качестве базового образа для финального образа
-FROM scratch
-
-# Копируем бинарники из предыдущего этапа
-COPY --from=build /filmgrpc/service/server /filmgrpc/service/server
-COPY --from=build /filmgrpc/client/client /filmgrpc/client/client
-
-# Запускаем сервер по умолчанию при запуске контейнера
-CMD ["/filmgrpc/service/server"]
+#final stage
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+COPY --from=builder /go/bin/app /app
+ENTRYPOINT /app
+LABEL Name=filmgrpc Version=0.0.1
+EXPOSE 5432
