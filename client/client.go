@@ -40,7 +40,7 @@ func main() {
 	r := GetRouter()
 
 	r.GET("/film/:id",func(ctx *gin.Context) {
-		id := ctx.Param("id")
+	   id := ctx.Param("id")
        res, err := c.GetMovie(ctx, &pb.ReadFilmRequest{Id: id})
        if err != nil {
            ctx.JSON(http.StatusNotFound, gin.H{
