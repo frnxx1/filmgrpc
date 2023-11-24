@@ -27,6 +27,8 @@ type Film struct {
 	UpdatedAt time.Time `gorm:"autoUpdateTime:false"`
 }
 
+
+
 func DatabaseConnection() {
 	localhost := "localhost"
 	

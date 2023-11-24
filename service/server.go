@@ -14,7 +14,7 @@ type server struct {
 	pb.UnimplementedMovieServiceServer
 }
 
-func (*server) CreateMovie(ctx context.Context, req *pb.CreateFilmRequest) (*pb.CreateFilmResponse, error) {
+func (server) CreateMovie(ctx context.Context, req *pb.CreateFilmRequest) (*pb.CreateFilmResponse, error) {
 	fmt.Println("Create Movie")
 	movie := req.GetMovie()
 	movie.Id = uuid.New().String()
@@ -94,4 +94,17 @@ func (*server) DeleteMovie(ctx context.Context, req *pb.DeleteFilmRequest) (*pb.
 	return &pb.DeleteFilmResponse{
 		Success: true,
 	}, nil
+}
+
+
+func DeleteMovieForTesting(ctx context.Context,title string) (bool, error) {
+	fmt.Println("delete film")
+	var movie st.Film
+
+	res := st.DB.Where("title = ?", title).Delete(&movie)
+	if res.RowsAffected == 0 {
+		return false, errors.New("film not found")
+	}
+
+	return true, nil
 }
