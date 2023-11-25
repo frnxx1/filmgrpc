@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	pb "film/service/ecommerce"
-	"fmt"
 	"log"
 	"net"
 	"testing"
@@ -25,7 +24,6 @@ func init() {
 			log.Fatalf("Server exited with error: %v", err)
 		}
 	}()
-
 
 }
 
@@ -59,11 +57,7 @@ func TestCreateMovie(t *testing.T) {
 	}
 	log.Printf("Response: %+v", resp)
 
-	ok,err := DeleteMovieForTesting(context.Background(),data.Title)
-	if err != nil {
-		fmt.Println(ok)
-	}
-	fmt.Println(ok)
+	DeleteMovieForTesting(context.Background(), data.Title)
 }
 
 func TestReadMovie(t *testing.T) {
@@ -81,12 +75,8 @@ func TestReadMovie(t *testing.T) {
 		t.Fatalf("GetMovie failed: %v", err)
 	}
 	log.Printf("Response: %+v", resp)
-	
-	ok,err := DeleteMovieForTesting(context.Background(),data.Title)
-	if err != nil {
-		fmt.Println(ok)
-	}
-	fmt.Println(ok)
+
+	DeleteMovieForTesting(context.Background(), data.Title)
 }
 
 func TestReadMovies(t *testing.T) {
@@ -103,12 +93,8 @@ func TestReadMovies(t *testing.T) {
 		t.Fatalf("GetMovies failed: %v", err)
 	}
 	log.Printf("Response: %+v", resp)
-	
-	ok,err := DeleteMovieForTesting(context.Background(),data.Title)
-	if err != nil {
-		fmt.Println(ok)
-	}
-	fmt.Println(ok)
+
+	DeleteMovieForTesting(context.Background(), data.Title)
 }
 
 func TestUpdateMovies(t *testing.T) {
@@ -133,12 +119,9 @@ func TestUpdateMovies(t *testing.T) {
 		t.Fatalf("UpdateMovies failed: %v", err)
 	}
 	log.Printf("Response: %+v", resp)
-	
-	ok,err := DeleteMovieForTesting(context.Background(),data.Title)
-	if err != nil {
-		fmt.Println(ok)
-	}
-	fmt.Println(ok)
+
+	DeleteMovieForTesting(context.Background(), data.Title)
+
 }
 
 func TestDeleteMovies(t *testing.T) {
@@ -157,10 +140,6 @@ func TestDeleteMovies(t *testing.T) {
 		t.Fatalf("UpdateMovies failed: %v", err)
 	}
 	log.Printf("Response: %+v", resp)
-	
-	ok,err := DeleteMovieForTesting(context.Background(),data.Title)
-	if err != nil {
-		fmt.Println(ok)
-	}
-	fmt.Println(ok)
+
+	DeleteMovieForTesting(context.Background(), data.Title)
 }
