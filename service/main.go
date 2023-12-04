@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net"
-
+	"film/service/metrics"
 	"google.golang.org/grpc"
 )
 
@@ -22,6 +22,9 @@ func main() {
 	s := grpc.NewServer()
 
 	pb.RegisterMovieServiceServer(s, &server{})
+	go func() {
+		_ = metrics.Listen("127.0.0.1:8082")
+	}()
 
 	log.Printf("Server listening at %v", lis.Addr())
 

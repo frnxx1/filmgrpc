@@ -3,13 +3,16 @@ package main
 import (
 	"context"
 	pb "film/client/ecommerce"
+	pr "film/service/ads"
 	st "film/service/storage"
 	"flag"
 	"log"
 	"net/http"
+
 	"time"
 
 	"github.com/gin-gonic/gin"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -38,30 +41,34 @@ func main() {
 	defer cancel()
 	gin.SetMode(gin.ReleaseMode)
 	r := GetRouter()
+	start := time.Now()
+	defer func() {
+		pr.ObserveRequest(time.Since(start), http.StatusOK)
+	}()
 
-	r.GET("/film/:id",func(ctx *gin.Context) {
-	   id := ctx.Param("id")
-       res, err := c.GetMovie(ctx, &pb.ReadFilmRequest{Id: id})
-       if err != nil {
-           ctx.JSON(http.StatusNotFound, gin.H{
-               "message": err.Error(),
-           })
-           return
-       }
-       ctx.JSON(http.StatusOK, gin.H{
-           "movie": res.Movie,
-       })
-	})
-
-	r.GET("/films",func(ctx *gin.Context) {
-		res,err := c.GetMovies(ctx,&pb.ReadFilmsRequest{})
+	r.GET("/film/:id", func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		res, err := c.GetMovie(ctx, &pb.ReadFilmRequest{Id: id})
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest,gin.H{"error": err})
+			ctx.JSON(http.StatusNotFound, gin.H{
+				"message": err.Error(),
+			})
 			return
 		}
-		ctx.JSON(http.StatusOK,res)
+		ctx.JSON(http.StatusOK, gin.H{
+			"movie": res.Movie,
+		})
 	})
-	
+
+	r.GET("/films", func(ctx *gin.Context) {
+		res, err := c.GetMovies(ctx, &pb.ReadFilmsRequest{})
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err})
+			return
+		}
+		ctx.JSON(http.StatusOK, res)
+	})
+
 	r.POST("/film", func(ct *gin.Context) {
 		var film st.Film
 		err := ct.ShouldBind(&film)
@@ -85,35 +92,35 @@ func main() {
 		})
 	})
 
-	r.PUT("/film/:id", func(ctx *gin.Context){
+	r.PUT("/film/:id", func(ctx *gin.Context) {
 		var film st.Film
 		err := ctx.ShouldBind(&film)
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest,gin.H{"error":err})
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
-		res, err :=c.UpdateMovie(ctx,&pb.UpdateFilmRequest{
+		res, err := c.UpdateMovie(ctx, &pb.UpdateFilmRequest{
 			Movie: &pb.Film{
-				Id: film.ID,
+				Id:    film.ID,
 				Title: film.Title,
 				Genre: film.Genre,
 			},
 		})
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest,gin.H{"error":err})
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
-		ctx.JSON(http.StatusOK,gin.H{"updated":res})
+		ctx.JSON(http.StatusOK, gin.H{"updated": res})
 	})
 
-	r.DELETE("/film/:id",func(ctx *gin.Context) {
+	r.DELETE("/film/:id", func(ctx *gin.Context) {
 		id := ctx.Param("id")
-		res, err := c.DeleteMovie(ctx,&pb.DeleteFilmRequest{Id: id})
+		res, err := c.DeleteMovie(ctx, &pb.DeleteFilmRequest{Id: id})
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest,gin.H{"error":err})
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
-		ctx.JSON(http.StatusOK,gin.H{"deleted":res})
+		ctx.JSON(http.StatusOK, gin.H{"deleted": res})
 	})
 
 	r.Run("localhost:8080")

@@ -56,6 +56,7 @@ func (*server) GetMovie(ctx context.Context, req *pb.ReadFilmRequest) (*pb.ReadF
 }
 
 func (*server) GetMovies(ctx context.Context, req *pb.ReadFilmsRequest) (*pb.ReadFilmsResponse, error) {
+
 	fmt.Println("read movies")
 	movie := []*pb.Film{}
 	res := st.DB.Find(&movie)
@@ -96,8 +97,7 @@ func (*server) DeleteMovie(ctx context.Context, req *pb.DeleteFilmRequest) (*pb.
 	}, nil
 }
 
-
-func DeleteMovieForTesting(ctx context.Context,title string)  {
+func DeleteMovieForTesting(ctx context.Context, title string) {
 	fmt.Println("delete film")
 	var movie st.Film
 
@@ -106,5 +106,4 @@ func DeleteMovieForTesting(ctx context.Context,title string)  {
 		fmt.Println("film not found")
 	}
 
-	
 }
